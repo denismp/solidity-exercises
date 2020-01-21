@@ -9,11 +9,11 @@ contract PreviousInvoker {
 
     function getLastInvoker() public returns(bool, address) {
         address previousInvoker = lastInvoker;
+        lastInvoker = msg.sender;
         bool flag = false;
-        if( lastInvoker != address(0x0)) {
+        if( previousInvoker != address(0x0)) {
             flag = true;
         }
-        lastInvoker = msg.sender;
         emit Invoked(flag, previousInvoker);
         return (flag, previousInvoker);
     }
