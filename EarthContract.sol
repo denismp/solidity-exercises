@@ -134,7 +134,7 @@ contract EarthContract {
         continentsMap[continent].push(countryRec);
     }
 
-    function getEuropeanCountriesOld() public view returns(string memory) {
+    function getEuropeanCountries() public view returns(string memory) {
         string memory rString;
         Country[] memory eCountries = continentsMap["Europe"];
         for(uint i = 0; i < eCountries.length; i++) {
