@@ -1,4 +1,4 @@
-pragma solidity >=0.4.22 <0.6.0;
+pragma solidity >=0.4.22 <0.6.2;
 
 contract RegistryOfCertificates {
     mapping(string => bool) certificates;

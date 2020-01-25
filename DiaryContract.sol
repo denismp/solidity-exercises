@@ -1,4 +1,4 @@
-pragma solidity >=0.4.22 <0.6.0;
+pragma solidity >=0.4.22 <0.6.2;
 pragma experimental ABIEncoderV2; // This is experimental.  don't use in main net.
 // https://blog.ethereum.org/2019/03/26/solidity-optimizer-and-abiencoderv2-bug/
 
