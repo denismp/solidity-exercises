@@ -128,6 +128,14 @@ contract EarthContract {
 
     function add(string memory country, string memory continent, uint population) public {
         require(bytes(europeanCapitals[country]).length != 0, "country is not a European country");
+        require(gasleft()>50000,"Not enough gas left.");
+        bool found = false;
+        for(uint i = 0; i < continentsMap[continent].length; i++) {
+            if(hashCompareWithLengthCheck(continentsMap[continent][i].country,country)) {
+                found = true;
+            }
+        }
+        require(found == false,"Duplicate found");
         countryRec.country = country;
         countryRec.capital = europeanCapitals[country];
         countryRec.population = population;
@@ -135,6 +143,7 @@ contract EarthContract {
     }
 
     function getEuropeanCountries() public view returns(string memory) {
+        require(gasleft()>200000,"Not enough gas left.");
         string memory rString;
         Country[] memory eCountries = continentsMap["Europe"];
         for(uint i = 0; i < eCountries.length; i++) {
@@ -143,7 +152,6 @@ contract EarthContract {
         }
         return rString;
     }
-
     // function getAllEuropeanCountriesOld() public view returns(string memory) {
     //     string memory rString;
     //     for(uint i = 0; i < europeanCountries.length; i++) {
@@ -155,6 +163,10 @@ contract EarthContract {
 
     function getAllEuropeanCountries() public view returns(string[] memory) {
         return europeanCountries;
+    }
+
+    function getGasLeft() public view returns(uint) {
+        return gasleft();
     }
 
     // function getContinentsOld() public view returns(string memory) {
@@ -171,6 +183,7 @@ contract EarthContract {
     }
 
     function addCapital(string memory capital, string memory country) public {
+        require(gasleft()>50000,"Not enough gas left.");
         require(bytes(europeanCapitals[country]).length != 0, "country is not a European country");
         for(uint i = 0; i < continentsMap["Europe"].length; i++) {
             if(hashCompareWithLengthCheck(continentsMap["Europe"][i].country,country)) {
@@ -189,6 +202,7 @@ contract EarthContract {
     }
 
     function deleteCapital(string memory capital, string memory country) public {
+        require(gasleft()>200000,"Not enough gas left.");
         require(bytes(europeanCapitals[country]).length != 0, "country is not a European country");
         for(uint i = 0; i < continentsMap["Europe"].length; i++) {
             if(hashCompareWithLengthCheck(continentsMap["Europe"][i].country,country)) {
@@ -231,7 +245,7 @@ contract EarthContract {
         }
     }
 
-    function strConcat(string memory _a, string memory _b) internal pure returns (string memory){
+    function strConcat(string memory _a, string memory _b) internal pure returns (string memory) {
         bytes memory _ba = bytes(_a);
         bytes memory _bb = bytes(_b);
         string memory ab = new string(_ba.length + _bb.length);
